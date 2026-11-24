@@ -130,6 +130,10 @@ SITE_TITLE = "History of Economic Thought"
 FONTS_URL = ("https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;0,700;1,600"
              "&family=EB+Garamond:ital,wght@0,400;0,600;1,400"
              "&family=IBM+Plex+Sans:wght@500;600&display=swap")
+BACKDROP_CREDIT = ("Background: Ambrogio Lorenzetti, <cite>Effects of Good Government in the City</cite> "
+                   "(1338–39), Palazzo Pubblico, Siena. Public domain, via "
+                   '<a href="https://commons.wikimedia.org/wiki/File:Ambrogio_Lorenzetti_-_Effects_of_Good_Government_in_the_city_-_Google_Art_Project.jpg">'
+                   "Wikimedia Commons</a>.")
 FOOTER = "From Aristotle to Hayek: lectures, handouts and exams from a course on the history of economic ideas."
 N_CHART_SERIES = 4  # chart series colours are --series-0 .. --series-3 in style.css
 
@@ -192,7 +196,10 @@ def page(title, body, root="", body_class="", hero=None):
 {body}
 </main>
 </div>
-<footer class="site-footer">{FOOTER}</footer>
+<footer class="site-footer">
+  <p>{FOOTER}</p>
+  <p class="credit">{BACKDROP_CREDIT}</p>
+</footer>
 </body>
 </html>
 """

@@ -1,6 +1,6 @@
 /* Shared styles for the History of Economic Thought site.
-   Look: an old merchant's ledger. Ruled paper, a double red margin rule,
-   Garamond type. Every colour, width and font is defined once, here. */
+   Look: a sheet of paper laid over Ambrogio Lorenzetti's fresco
+   "Effects of Good Government in the City" (1338-39), Garamond type. Every colour, width and font is defined once, here. */
 
 :root {
     /* colours */
@@ -15,8 +15,7 @@
     --paper: #fbf6ea;
     --card: #fffdf7;
     --rule: #ddd0b6;
-    --ledger-line: rgba(70, 110, 150, 0.14);
-    --margin-line: rgba(162, 59, 44, 0.7);
+    --backdrop-tint: rgba(43, 33, 24, 0.35);   /* darkens the painting behind the page */
     --series-0: #7a1f1f;
     --series-1: #2c5d7c;
     --series-2: #5c7a35;
@@ -31,8 +30,10 @@
     /* geometry */
     --page-width: 60rem;
     --inline-image-width: 66%;
-    --line-step: 2rem;         /* spacing of the ruled ledger lines */
-    --margin-x: 3.25rem;       /* where the red margin rule sits */
+    --sheet-pad-x: clamp(1rem, 4vw, 2.75rem);
+
+    /* background painting */
+    --backdrop: url("graphics/lorenzetti-good-government.jpg");
     --radius: 4px;
 }
 
@@ -49,6 +50,16 @@ body {
     line-height: 1.55;
     color: var(--ink);
     background: var(--desk);
+}
+
+/* The painting sits in a fixed layer behind everything (background-attachment:
+   fixed is unreliable on mobile browsers). */
+body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    background: linear-gradient(var(--backdrop-tint), var(--backdrop-tint)), var(--backdrop) center / cover no-repeat;
 }
 
 a { color: var(--oxblood); text-underline-offset: 0.15em; }
@@ -81,24 +92,17 @@ h1, h2, h3, h4 { font-family: var(--display); line-height: 1.15; color: var(--in
 }
 .site-nav .links { display: flex; gap: clamp(0.8rem, 3vw, 1.6rem); font-size: 0.85rem; font-weight: 500; }
 
-/* ---------- The ledger sheet ---------- */
+/* ---------- The paper sheet ---------- */
 .sheet {
     position: relative;
     max-width: var(--page-width);
     margin: clamp(0rem, 3vw, 2rem) auto 0;
-    padding: 0 clamp(1rem, 4vw, 2.75rem) clamp(1.5rem, 4vw, 2.75rem) calc(var(--margin-x) + 1.5rem);
-    background-color: var(--paper);
-    /* Ruled lines, plus a double red rule down the left margin. */
-    background-image:
-        linear-gradient(90deg, transparent calc(var(--margin-x) - 4px), var(--margin-line) calc(var(--margin-x) - 4px),
-                        var(--margin-line) calc(var(--margin-x) - 3px), transparent calc(var(--margin-x) - 3px),
-                        transparent var(--margin-x), var(--margin-line) var(--margin-x),
-                        var(--margin-line) calc(var(--margin-x) + 1px), transparent calc(var(--margin-x) + 1px)),
-        linear-gradient(transparent calc(var(--line-step) - 1px), var(--ledger-line) calc(var(--line-step) - 1px));
-    background-size: 100% 100%, 100% var(--line-step);
+    padding: 0 var(--sheet-pad-x) clamp(1.5rem, 4vw, 2.75rem);
+    background: var(--paper);
     border: 1px solid var(--rule);
-    box-shadow: 0 10px 40px rgba(47, 42, 36, 0.18);
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.45);
 }
+body.home .sheet { margin-top: clamp(0rem, 12vw, 9rem); }
 
 /* ---------- Page header ---------- */
 .hero { padding: clamp(2rem, 5vw, 3.25rem) 0 clamp(1.25rem, 3vw, 2rem); }
@@ -360,13 +364,17 @@ article.paper ol, article.paper ul { padding-left: 1.6rem; }
     padding: 1.5rem clamp(1rem, 4vw, 2.5rem) 2.5rem;
     font-size: 0.95rem;
     font-style: italic;
-    color: var(--muted);
+    color: var(--binding-text);
     text-align: center;
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.9);
 }
+.site-footer p { margin: 0.25rem 0; }
+.site-footer .credit { font-size: 0.85rem; }
+.site-footer a { color: var(--binding-text); }
 
 /* ---------- Small screens ---------- */
 @media (max-width: 40rem) {
-    :root { --base-size: 1.05rem; --margin-x: 1.25rem; --inline-image-width: 100%; }
+    :root { --base-size: 1.05rem; --inline-image-width: 100%; }
     .site-nav .links { font-size: 0.78rem; }
     nav.pager { grid-template-columns: 1fr; }
     nav.pager a.next { text-align: left; }
