@@ -1,0 +1,373 @@
+/* Shared styles for the History of Economic Thought site.
+   Look: an old merchant's ledger. Ruled paper, a double red margin rule,
+   Garamond type. Every colour, width and font is defined once, here. */
+
+:root {
+    /* colours */
+    --ink: #2b2118;
+    --muted: #6f6152;
+    --oxblood: #7a1f1f;
+    --oxblood-light: #a23b2c;
+    --gilt: #b08a3e;
+    --binding: #2f2a24;
+    --binding-text: #efe6d4;
+    --desk: #e9dfcb;
+    --paper: #fbf6ea;
+    --card: #fffdf7;
+    --rule: #ddd0b6;
+    --ledger-line: rgba(70, 110, 150, 0.14);
+    --margin-line: rgba(162, 59, 44, 0.7);
+    --series-0: #7a1f1f;
+    --series-1: #2c5d7c;
+    --series-2: #5c7a35;
+    --series-3: #8a5a9c;
+
+    /* type */
+    --display: "Cormorant Garamond", Garamond, Georgia, serif;
+    --serif: "EB Garamond", Garamond, Georgia, "Times New Roman", serif;
+    --sans: "IBM Plex Sans", "Helvetica Neue", Arial, sans-serif;
+    --base-size: 1.15rem;
+
+    /* geometry */
+    --page-width: 60rem;
+    --inline-image-width: 66%;
+    --line-step: 2rem;         /* spacing of the ruled ledger lines */
+    --margin-x: 3.25rem;       /* where the red margin rule sits */
+    --radius: 4px;
+}
+
+* { box-sizing: border-box; }
+
+html { scroll-padding-top: 4.5rem; }
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    overflow-x: hidden;
+    font-family: var(--serif);
+    font-size: var(--base-size);
+    line-height: 1.55;
+    color: var(--ink);
+    background: var(--desk);
+}
+
+a { color: var(--oxblood); text-underline-offset: 0.15em; }
+a:hover { color: var(--oxblood-light); }
+
+h1, h2, h3, h4 { font-family: var(--display); line-height: 1.15; color: var(--ink); }
+
+/* ---------- Top navigation: the book's spine ---------- */
+.site-nav {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem 1rem;
+    padding: 0.75rem clamp(1rem, 4vw, 2.5rem);
+    font-family: var(--sans);
+    background: var(--binding);
+    border-bottom: 3px double var(--gilt);
+}
+.site-nav a { color: var(--binding-text); text-decoration: none; }
+.site-nav a:hover { color: var(--gilt); }
+.site-nav .brand {
+    font-family: var(--display);
+    font-weight: 700;
+    font-size: 1.2rem;
+    letter-spacing: 0.04em;
+}
+.site-nav .links { display: flex; gap: clamp(0.8rem, 3vw, 1.6rem); font-size: 0.85rem; font-weight: 500; }
+
+/* ---------- The ledger sheet ---------- */
+.sheet {
+    position: relative;
+    max-width: var(--page-width);
+    margin: clamp(0rem, 3vw, 2rem) auto 0;
+    padding: 0 clamp(1rem, 4vw, 2.75rem) clamp(1.5rem, 4vw, 2.75rem) calc(var(--margin-x) + 1.5rem);
+    background-color: var(--paper);
+    /* Ruled lines, plus a double red rule down the left margin. */
+    background-image:
+        linear-gradient(90deg, transparent calc(var(--margin-x) - 4px), var(--margin-line) calc(var(--margin-x) - 4px),
+                        var(--margin-line) calc(var(--margin-x) - 3px), transparent calc(var(--margin-x) - 3px),
+                        transparent var(--margin-x), var(--margin-line) var(--margin-x),
+                        var(--margin-line) calc(var(--margin-x) + 1px), transparent calc(var(--margin-x) + 1px)),
+        linear-gradient(transparent calc(var(--line-step) - 1px), var(--ledger-line) calc(var(--line-step) - 1px));
+    background-size: 100% 100%, 100% var(--line-step);
+    border: 1px solid var(--rule);
+    box-shadow: 0 10px 40px rgba(47, 42, 36, 0.18);
+}
+
+/* ---------- Page header ---------- */
+.hero { padding: clamp(2rem, 5vw, 3.25rem) 0 clamp(1.25rem, 3vw, 2rem); }
+.hero .kicker {
+    margin: 0 0 0.4rem;
+    font-family: var(--sans);
+    font-weight: 600;
+    font-size: 0.78rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--oxblood);
+}
+.hero h1 {
+    margin: 0;
+    font-weight: 700;
+    font-size: clamp(2rem, 5vw, 2.9rem);
+}
+.hero .sub { margin: 0.5rem 0 0; font-size: 1.15rem; font-style: italic; color: var(--muted); max-width: 40rem; }
+
+body.home .hero { padding-top: clamp(3rem, 8vw, 5.5rem); padding-bottom: clamp(2rem, 5vw, 3rem); }
+body.home .hero h1 { font-size: clamp(2.6rem, 7vw, 4.2rem); }
+body.home .hero .sub { font-size: clamp(1.15rem, 2.2vw, 1.35rem); }
+body.home .hero::after {
+    content: "";
+    display: block;
+    width: 8rem;
+    margin-top: 1.5rem;
+    border-top: 3px double var(--gilt);
+}
+
+main > section + section { margin-top: 3rem; }
+
+main h2 {
+    font-size: 2rem;
+    margin: 0 0 0.75rem;
+    color: var(--oxblood);
+}
+main h3 { font-size: 1.4rem; margin: 1.75rem 0 0.5rem; }
+.lede { margin: -0.25rem 0 1.25rem; color: var(--muted); }
+
+/* ---------- Schedule ---------- */
+ol.schedule { list-style: none; padding: 0; margin: 0; }
+.topic {
+    display: grid;
+    grid-template-columns: 2.5rem 1fr;
+    gap: 0.75rem;
+    padding: 0.85rem 0;
+    border-bottom: 1px solid var(--rule);
+}
+.topic .week {
+    font-family: var(--display);
+    font-weight: 700;
+    font-size: 1.6rem;
+    line-height: 1;
+    color: var(--gilt);
+    text-align: right;
+}
+.topic .title { display: block; font-size: 1.15rem; font-weight: 600; }
+.topic.bare .title { font-weight: 400; color: var(--muted); }
+.topic .reading { display: block; font-size: 0.98rem; font-style: italic; color: var(--muted); }
+.topic .chips { margin-top: 0.45rem; }
+
+/* ---------- Chips (links to materials) ---------- */
+.chips { display: flex; flex-wrap: wrap; gap: 0.45rem; }
+a.chip {
+    padding: 0.15rem 0.7rem;
+    font-family: var(--sans);
+    font-size: 0.8rem;
+    text-decoration: none;
+    color: var(--ink);
+    background: var(--card);
+    border: 1px solid var(--rule);
+    border-radius: 999px;
+}
+a.chip:hover { border-color: var(--oxblood); color: var(--oxblood); }
+a.chip::before { margin-right: 0.35rem; color: var(--oxblood); }
+a.chip.deck::before { content: "Lecture ·"; }
+a.chip.handout::before { content: "Handout ·"; }
+a.chip.spreadsheet::before { content: "Spreadsheet ·"; }
+
+p.related { display: flex; flex-wrap: wrap; align-items: center; gap: 0.45rem; margin: 0 0 1.25rem; }
+p.related > span { font-family: var(--sans); font-size: 0.8rem; color: var(--muted); }
+
+/* ---------- Index cards ---------- */
+ul.cards {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(14rem, 1fr));
+    gap: 1rem;
+}
+a.card {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+    height: 100%;
+    padding: 1rem 1.1rem 0.9rem;
+    background: var(--card);
+    border: 1px solid var(--rule);
+    border-left: 4px solid var(--oxblood);
+    border-radius: var(--radius);
+    color: var(--ink);
+    text-decoration: none;
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+a.card:hover { color: var(--ink); transform: translateY(-2px); box-shadow: 0 8px 20px rgba(47, 42, 36, 0.12); }
+.card .label {
+    font-family: var(--sans);
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--oxblood);
+}
+.card .title { font-family: var(--display); font-weight: 700; font-size: 1.4rem; line-height: 1.15; }
+.card .meta { margin-top: auto; padding-top: 0.4rem; font-family: var(--sans); font-size: 0.78rem; color: var(--muted); }
+
+ul.plain-list { padding-left: 1.2rem; margin: 0; }
+ul.plain-list li { margin: 0.35rem 0; }
+ul.plain-list li::marker { color: var(--gilt); }
+ul.plain-list .desc { color: var(--muted); }
+
+/* ---------- Lecture pages ---------- */
+nav.pager {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin: 0 0 1.25rem;
+}
+nav.pager:last-child { margin: 2rem 0 0; }
+nav.pager a {
+    display: flex;
+    flex-direction: column;
+    padding: 0.6rem 1rem;
+    text-decoration: none;
+    background: var(--card);
+    border: 1px solid var(--rule);
+    border-radius: var(--radius);
+    color: var(--ink);
+}
+nav.pager a:hover { border-color: var(--oxblood); }
+nav.pager a.next { text-align: right; }
+nav.pager .dir {
+    font-family: var(--sans);
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--oxblood);
+}
+nav.pager .t { font-family: var(--display); font-weight: 700; font-size: 1.2rem; }
+
+details.contents {
+    margin-bottom: 1.5rem;
+    background: var(--card);
+    border: 1px solid var(--rule);
+    border-radius: var(--radius);
+    padding: 0.55rem 1.1rem;
+}
+details.contents summary {
+    cursor: pointer;
+    font-family: var(--sans);
+    font-weight: 600;
+    font-size: 0.82rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+details.contents ol { columns: 2 16rem; margin: 0.75rem 0 0.25rem; padding-left: 1.6rem; font-size: 1rem; }
+details.contents li { break-inside: avoid; margin: 0.1rem 0; }
+details.contents a { color: var(--ink); text-decoration: none; }
+details.contents a:hover { color: var(--oxblood); text-decoration: underline; }
+
+section.slide {
+    background: var(--card);
+    border: 1px solid var(--rule);
+    border-radius: var(--radius);
+    padding: 1rem clamp(1rem, 3vw, 2rem) 1.2rem;
+    margin: 1.25rem 0;
+    box-shadow: 0 1px 2px rgba(47, 42, 36, 0.06);
+}
+section.slide h2 {
+    display: flex;
+    align-items: baseline;
+    gap: 0.7rem;
+    margin: 0 0 0.4rem;
+    font-size: 1.6rem;
+    color: var(--ink);
+}
+section.slide .num {
+    flex: none;
+    font-family: var(--sans);
+    font-size: 0.78rem;
+    font-weight: 600;
+    text-decoration: none;
+    color: var(--gilt);
+}
+section.slide ul { padding-left: 1.3rem; margin: 0.35rem 0; }
+section.slide li { margin: 0.2rem 0; }
+section.slide li::marker { color: var(--oxblood); }
+
+/* Images mixed in with text never take the full width. */
+section.slide img, article.paper img {
+    display: block;
+    max-width: var(--inline-image-width);
+    max-height: 28rem;
+    height: auto;
+    margin: 1rem auto;
+    border: 1px solid var(--rule);
+}
+
+aside.notes {
+    margin-top: 1rem;
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    color: var(--muted);
+    background: var(--paper);
+    border-left: 3px solid var(--gilt);
+}
+aside.notes ul { margin: 0; }
+
+table { border-collapse: collapse; margin: 1rem 0; font-size: 1rem; background: var(--card); }
+th, td { border: 1px solid var(--rule); padding: 0.3rem 0.7rem; text-align: left; }
+th { background: var(--paper); font-family: var(--sans); font-size: 0.9rem; font-weight: 600; }
+
+/* Charts drawn from slide chart data */
+svg.chart {
+    display: block;
+    width: var(--inline-image-width);
+    height: auto;
+    margin: 1rem auto 0;
+    font-size: 12px;
+    font-family: var(--sans);
+}
+svg.chart text { fill: var(--muted); }
+svg.chart .grid { stroke: var(--rule); }
+svg.chart polyline { fill: none; stroke-width: 2.5; }
+p.legend { text-align: center; font-family: var(--sans); font-size: 0.85rem; }
+p.legend span { margin: 0 0.6rem; }
+.series-0 { stroke: var(--series-0); color: var(--series-0); }
+.series-1 { stroke: var(--series-1); color: var(--series-1); }
+.series-2 { stroke: var(--series-2); color: var(--series-2); }
+.series-3 { stroke: var(--series-3); color: var(--series-3); }
+
+/* ---------- Handouts and quizzes (pandoc output) ---------- */
+article.paper {
+    background: var(--card);
+    border: 1px solid var(--rule);
+    border-radius: var(--radius);
+    padding: clamp(1rem, 4vw, 2.5rem);
+}
+article.paper > :first-child { margin-top: 0; }
+article.paper ol, article.paper ul { padding-left: 1.6rem; }
+
+/* ---------- Footer ---------- */
+.site-footer {
+    max-width: var(--page-width);
+    margin: 0 auto;
+    padding: 1.5rem clamp(1rem, 4vw, 2.5rem) 2.5rem;
+    font-size: 0.95rem;
+    font-style: italic;
+    color: var(--muted);
+    text-align: center;
+}
+
+/* ---------- Small screens ---------- */
+@media (max-width: 40rem) {
+    :root { --base-size: 1.05rem; --margin-x: 1.25rem; --inline-image-width: 100%; }
+    .site-nav .links { font-size: 0.78rem; }
+    nav.pager { grid-template-columns: 1fr; }
+    nav.pager a.next { text-align: left; }
+}
