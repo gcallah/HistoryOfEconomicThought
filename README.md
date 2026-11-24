@@ -2,6 +2,8 @@
 
 Class material from my history of economic thought course.
 
+Course site: https://gcallah.github.io/HistoryOfEconomicThought/
+
 ## Building the site
 
 The site is generated from course material kept outside this repo, in
